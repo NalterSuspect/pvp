@@ -18,10 +18,10 @@ class PokemonController extends AbstractController
     {}
 
 
-    #[Route('/pokemon', name: 'app_home')]
+    #[Route('/pokemon', name: 'pokemon_home')]
     public function index(): Response
     {
-        $this->pokemonService->getAllPokemonTypes();
+        $this->pokemonService->getOnePokemon(52);
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

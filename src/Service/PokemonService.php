@@ -21,8 +21,13 @@ class PokemonService
         dd($response->toArray());
     }
 
+    function getOnePokemon($id): void {
+        $response = $this->httpClient->request('GET', 'https://tyradex.app/api/v1/pokemon/'.$id);
+        dd($response->toArray());
+    }
+
     function getAllPokemonTypes(): void {
-        $response = $this->httpClient->request('GET', 'https://tyradex.tech/api/v1/types');
+        $response = $this->httpClient->request('GET', 'https://tyradex.app/api/v1/types');
         dd($response->toArray());
     }
 
