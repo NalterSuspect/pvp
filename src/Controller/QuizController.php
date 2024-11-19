@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\Winrate;
 use App\Form\CreateQuestionFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,17 @@ class QuizController extends AbstractController
         }
 
         $questions=$entityManager->getRepository(Question::class)->findAll();
+
+        $arr=["basic","advance","expert","custom"];
+//        foreach ($arr as $a) {
+//            $winrate= new Winrate();
+//            $winrate->setIdUser($this->getUser()->getId());
+//            $winrate->setTypeQuestion($a);
+//            $winrate->setCorrectAnswer(0);
+//            $winrate->setTotalAnswers(0);
+//            $entityManager->persist($winrate);
+//            $entityManager->flush();
+//        }
 
         return $this->render('quiz/index.html.twig', [
             'controller_name' => 'QuizController',
