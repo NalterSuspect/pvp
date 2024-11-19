@@ -30,12 +30,13 @@ class Pokemon
     #[ORM\Column(nullable: true)]
     private ?int $gen = null;
 
-    #[ORM\ManyToOne(inversedBy: 'type2')]
-    private ?type $type2 = null;
-
-    #[ORM\ManyToOne(inversedBy: 'type1')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?type $type1 = null;
+    private ?Type $type1 = null;
+
+    #[ORM\ManyToOne]
+    private ?Type $type2 = null;
+
 
 
 
@@ -104,26 +105,26 @@ class Pokemon
         return $this;
     }
 
-    public function getType2(): ?type
-    {
-        return $this->type2;
-    }
-
-    public function setType2(?type $type2): static
-    {
-        $this->type2 = $type2;
-
-        return $this;
-    }
-
-    public function getType1(): ?type
+    public function getType1(): ?Type
     {
         return $this->type1;
     }
 
-    public function setType1(?type $type1): static
+    public function setType1(?Type $type1): static
     {
         $this->type1 = $type1;
+
+        return $this;
+    }
+
+    public function getType2(): ?Type
+    {
+        return $this->type2;
+    }
+
+    public function setType2(?Type $type2): static
+    {
+        $this->type2 = $type2;
 
         return $this;
     }

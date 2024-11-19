@@ -36,13 +36,13 @@ class TypeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Type
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOneByName($name): ?Type
+   {
+       return $this->createQueryBuilder('t')
+           ->andWhere('type.name = :$name')
+           ->setParameter('val', $name)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 }
