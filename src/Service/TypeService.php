@@ -33,6 +33,12 @@ class TypeService
             $this->entityManager->flush();
     }
 
+    function getAllTypes():array{
+        return $this->entityManager->getRepository(Type::class)->findAll();
+    }
+
+    
+
 
 
 

@@ -21,20 +21,18 @@ class PokemonRepository extends ServiceEntityRepository
         parent::__construct($registry, Pokemon::class);
     }
 
-//    /**
-//     * @return Pokemon[] Returns an array of Pokemon objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Pokemon[] Returns an array of Pokemon objects
+    */
+   public function findPokemonWithStartLetter($letter): array
+   {
+       $query=  $this->createQueryBuilder('p')
+           ->andWhere('p.name LIKE :letter')
+           ->setParameter('letter', $letter . '%');
+
+        $query=$query->getQuery();
+        return $query->execute();
+   }
 
 //    public function findOneBySomeField($value): ?Pokemon
 //    {

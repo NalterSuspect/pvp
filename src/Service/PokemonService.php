@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entity\Pokemon;
@@ -33,6 +34,10 @@ class PokemonService
             $this->entityManager->flush();
     }
 
+    function findPokemonByStartLetter(string $letter): array{
+        return $this->entityManager->getRepository(Pokemon::class)->findPokemonWithStartLetter($letter);
+        
+    }
 
 
 

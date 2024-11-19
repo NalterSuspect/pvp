@@ -1,0 +1,15 @@
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+       
+        {% for pokemon in list_pokemon %}
+        <div>
+            <img src="{{pokemon.sprite}}" alt="picture of the pokemon {{pokemon.name}}">
+            <p> {{pokemon.name}} </p>
+            <p> {{pokemon.price}} </p>
+
+        </div>
+
+        {% endfor %}
+
+{% endblock %}

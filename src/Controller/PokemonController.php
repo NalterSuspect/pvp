@@ -51,5 +51,16 @@ class PokemonController extends AbstractController
 
     }
 
+    #[Route('/boutique', name: 'pokemon_boutique')]
+    public function boutique():Response{
+        $listPokemon = $this->pokemonService->findPokemonByStartLetter('g');
+    
+        //dd($listPokemon);
+        return $this->render('pokemon/boutique.html.twig', [
+            'list_pokemon' => $listPokemon,
+            'controller_name' => 'PokemonController',
+        ]);
+    }
+
     
 }
