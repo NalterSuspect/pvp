@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Type;
 
 use App\Entity\Pokemon;
 class PokemonService 
@@ -34,9 +35,27 @@ class PokemonService
             $this->entityManager->flush();
     }
 
+    function getAllPokemon():array {
+        return $this->entityManager->getRepository(Pokemon::class)->findAll();
+    }  
+
     function findPokemonByStartLetter(string $letter): array{
         return $this->entityManager->getRepository(Pokemon::class)->findPokemonWithStartLetter($letter);
         
+    }
+
+    function findPokemonByType(Type $type): array{
+        return $this->entityManager->getRepository(Pokemon::class)->findPokemonWithType($type->getId());
+        
+    }
+
+    function findPokemonByGen(int $gen,$offset): array{
+        return $this->entityManager->getRepository(Pokemon::class)->findBy(array("gen" => $gen),null,30,$offset);
+        
+    }
+
+    function getAllGeneration():array {
+        return $this->entityManager->getRepository(Pokemon::class)->getAllGen();
     }
 
 
