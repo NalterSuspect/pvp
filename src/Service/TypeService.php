@@ -36,11 +36,11 @@ class TypeService
     function getAllTypes():array{
         return $this->entityManager->getRepository(Type::class)->findAll();
     }
+    public function getRandomType():Type{
+        return $this->entityManager->getRepository(className: Type::class)->getRandomType();
+    }
 
-    
-
-
-
-
-
+    public function setTypeToEnglish(): void{
+        $this->entityManager->getRepository(className: Type::class)->updateTypeToEnglish();
+    }
 }

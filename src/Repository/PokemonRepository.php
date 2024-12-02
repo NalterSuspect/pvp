@@ -35,6 +35,13 @@ class PokemonRepository extends ServiceEntityRepository
         return $query->execute();
    }
 
+   public function getAllGen()
+   {
+       $query=  $this->createQueryBuilder('p')->groupBy('p.gen');
+       $query=$query->getQuery();
+       return $query->getResult();
+   }
+
    public function findPokemonWithType(int $type): array
    {
     
@@ -48,12 +55,6 @@ class PokemonRepository extends ServiceEntityRepository
         return $query->execute();
    }
 
-   public function getAllGen():array
-   {
-       $query=  $this->createQueryBuilder('p')->groupBy('p.gen');
-       $query=$query->getQuery();
-       return $query->getResult();
-   }
 
 
 //    public function findOneBySomeField($value): ?Pokemon
