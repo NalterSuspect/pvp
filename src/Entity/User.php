@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -31,6 +33,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $money = null;
+
+    #[ORM\ManyToMany(targetEntity: Pokemon::class)]
+    private Collection $pokemonOfUser;
+
+    public function __construct()
+    {
+        $this->pokemonOfUser = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -110,6 +120,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMoney(int $money): static
     {
         $this->money = $money;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pokemon>
+     */
+    public function getPokemonOfUser(): Collection
+    {
+        return $this->pokemonOfUser;
+    }
+
+    public function addPokemonOfUser(Pokemon $pokemonOfUser): static
+    {
+        if (!$this->pokemonOfUser->contains($pokemonOfUser)) {
+            $this->pokemonOfUser->add($pokemonOfUser);
+        }
+
+        return $this;
+    }
+
+    public function removePokemonOfUser(Pokemon $pokemonOfUser): static
+    {
+        $this->pokemonOfUser->removeElement($pokemonOfUser);
 
         return $this;
     }
