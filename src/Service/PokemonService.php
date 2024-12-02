@@ -38,8 +38,4 @@ class PokemonService
         return $this->entityManager->getRepository(Pokemon::class)->findPokemonWithStartLetter($letter);
         
     }
-
-
-
-
 }

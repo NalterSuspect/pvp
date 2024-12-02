@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Type;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,5 +45,25 @@ class TypeRepository extends ServiceEntityRepository
            ->getQuery()
            ->getOneOrNullResult()
        ;
+   }
+   public function updateTypeToEnglish(){
+        $i=1;
+        $eng_names = ['Steel','Figth','Dragon','Water','Electric','Fairy','Fire','Ice','Bug','Normal','Plant','Poison','Psychic','Rock','Ground','Ghost','Dark','Flying'];
+        foreach ($eng_names as $name){
+            $query = $this->createQueryBuilder('t')
+                ->update(Type::class,'t')
+                ->set('t.name',':eng')
+                ->where('t.id = :i')
+                ->setParameter('eng' ,$name)
+                ->setParameter('i' , $i);
+            $query->getQuery()->execute();
+            $i++;
+        }
+   }
+
+   public function getRandomType(){
+        $types = $this->findAll();
+        $idType=random_int(1,count($types));
+        return $this->findOneBy(['id'=>$idType]);
    }
 }
