@@ -18,10 +18,6 @@ class QuizController extends AbstractController
     #[Route('/quiz', name: 'index_quiz')]
     public function index(): Response
     {
-        //dd($QuestionService->getTypePokemonQuestion());
-        //dd($QuestionService->getGenPokemonQuestion());
-        //dd($QuestionService->getNamePokemonQuestion());
-
         return $this->render('quiz/index.html.twig', [
             'controller_name' => 'QuizController',
         ]);
@@ -39,11 +35,6 @@ class QuizController extends AbstractController
         }
 
         $questions = $QuestionService->getQuestionsByUserId($this->getUser()->getId());
-
-
-        //dd($QuestionService->getTypePokemonQuestion());
-        //dd($QuestionService->getGenPokemonQuestion());
-        //dd($QuestionService->getNamePokemonQuestion());
 
         return $this->render('quiz/createQuiz.html.twig', [
             'controller_name' => 'QuizController',

@@ -15,11 +15,6 @@ class QuestionService
     ){
     }
 
-    public function getAllQuestions(){
-        $questions = $this->entityManager->getRepository(className: Question::class)->findAll();
-        return $questions;
-    }
-
     public function getQuestionsByUserId($userId){
         return $this->entityManager->getRepository(className: Question::class)->getQuestionsByUserId($userId);
     }
