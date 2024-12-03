@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Question;
-use App\Entity\Winrate;
 use App\Service\QuestionService;
 use App\Form\CreateQuestionFormType;
-use App\Service\TypeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuizController extends AbstractController
 {
+    public function __construct(
+        private readonly QuestionService $questionService,
+        private EntityManagerInterface $entityManager
+    )
+    {
+    }
     #[Route('/quiz', name: 'index_quiz')]
     public function index(): Response
     {
@@ -23,9 +27,9 @@ class QuizController extends AbstractController
         ]);
     }
     #[Route('/quiz/create', name: 'create_quiz')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request): Response
     {
-        $QuestionService = new QuestionService($entityManager);
+        $QuestionService = new QuestionService($this->entityManager);
         $question = new Question();
         $createQuestionForm = $this->createForm(CreateQuestionFormType::class, $question);
         $createQuestionForm->handleRequest($request);
@@ -46,9 +50,9 @@ class QuizController extends AbstractController
     #[Route('/quiz/play', name: 'play_quiz')]
     public function play(): Response
     {
-        //dd($QuestionService->getTypePokemonQuestion());
-        //dd($QuestionService->getGenPokemonQuestion());
-        //dd($QuestionService->getNamePokemonQuestion());
+        dd($this->questionService->getTypePokemonQuestion());
+        //dd($this->questionService->getGenPokemonQuestion());
+        //dd($this->questionService->getNamePokemonQuestion());
 
         return $this->render('quiz/playQuiz.html.twig', [
             'controller_name' => 'QuizController',
