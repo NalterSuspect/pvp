@@ -23,7 +23,7 @@ class QuestionRepository extends ServiceEntityRepository
 
     public function getQuestionsByUserId($userId){
         $query = $this->createQueryBuilder('q')
-            ->where('q.id = :userId')
+            ->where('q.idUser = :userId')
             ->setParameter('userId', $userId);
         $query = $query->getQuery();
         return $query->getResult();
