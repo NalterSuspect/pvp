@@ -39,6 +39,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findPokemonOfUser(string $username): array
+    {
+     
+        $query=  $this->createQueryBuilder('u')
+            ->andWhere('u.username = :username')
+            ->leftJoin('u.pokemonOfUser','pokemonOfUser')
+            ->setParameter('username', $username);
+         $query=$query->getQuery();
+         return $query->execute();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
