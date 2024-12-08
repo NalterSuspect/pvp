@@ -43,11 +43,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
      
         $query=  $this->createQueryBuilder('u')
-            ->andWhere('u.username = :username')
-            ->leftJoin('u.pokemonOfUser','pokemonOfUser')
+            ->select('u')
+            ->innerJoin('u.pokemonOfUser','p')
+            ->where('u.username = :username')
             ->setParameter('username', $username);
-         $query=$query->getQuery();
-         return $query->execute();
+         $query=$query->getQuery()->getResult();
+         return $query;
     }
 
 //    /**

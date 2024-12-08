@@ -10,14 +10,20 @@ use App\Entity\Type;
 
 use App\Entity\User;
 use App\Entity\Pokemon;
+use Symfony\Component\Security\Core\Security;
 
 class UserService 
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private Security $security
     )
     {
 
+    }
+
+    function getUser():User{
+        return $this->security->getUser();
     }
 
     function getUserMoney(string $username):int{
@@ -25,8 +31,14 @@ class UserService
         return $user->getMoney();
     }
 
-    function getPokemonOfUser(string $username): array{
+    function getPokemonOfUser(string $username):array {
         return $this->entityManager->getRepository(User::class)->findPokemonOfUser($username);
+    }
+
+    function addMoney(User $user){
+        $user->setMoney($user->getMoney()+1);
+        $this->entityManager->flush();
+        //$this->entityManager->flush();
     }
 
 }

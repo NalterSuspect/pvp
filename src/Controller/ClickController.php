@@ -39,24 +39,32 @@ class ClickController extends AbstractController
         ]);
     }
 
-    #[Route('/displayPokemon', name: 'app_click')]
+    #[Route('/displayPokemon', name: 'app_display_pokemon')]
     public function displayPokemon(): Response
     {
-        $user = get_current_user();
-        $pokemon = $this->userService->getPokemonOfUser($user);
-        $randomPokemon = random_int(1, count($pokemon)-1);
-
-        $money = $this->userService->getUserMoney($user);
-
-        return $this->render('click_page/index.html.twig', [
+        $user = $this->userService->getUser();
+        $pokemon = $this->userService->getPokemonOfUser($user->getUsername());
+        foreach($pokemon as $p){
+            $randomPokemon=$p->getPokemonOfUser()->toArray();
+        }
+        $randomPokemon=$randomPokemon[rand(0,count($randomPokemon)-1)];
+        $money = $user->getMoney();
+        //dd($randomPokemon);
+        return $this->render('click/index.html.twig', [
             'controller_name' => 'ClickController',
-            'pokemon_displayed'=> $randomPokemon,
+            'pokemon'=> $randomPokemon,
             'money'=>$money,
             
         ]);
     }
 
-
+    #[Route('/addMoney', name: 'app_add_money')]
+    public function addMoney(): Response
+    {
+        $user = $this->userService->getUser();
+        $this->userService->addMoney($user);
+        return new Response("$ : ".$user->getMoney());
+    }
 
 
 }

@@ -1,20 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClickController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <img src='{{pokemon.sprite}}' 
+    hx-get="{{path('app_add_money') }}"
+                hx-trigger="click"
+                hx-target="#moneyUser"
+                hx-swap="innerHTML"
+     alt=''>
+    <p id="moneyUser"> $ : {{money}} </p> 
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/qsimo/OneDrive/Documents/Pro/cours BUT quentin/3ème année/projet symfony/pvp/src/Controller/ClickController.php'|file_link(0) }}">src/Controller/ClickController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/qsimo/OneDrive/Documents/Pro/cours BUT quentin/3ème année/projet symfony/pvp/templates/click/index.html.twig'|file_link(0) }}">templates/click/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

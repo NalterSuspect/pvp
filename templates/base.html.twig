@@ -15,6 +15,17 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        {% block headers %}
+           <ul class="nav nav-pills">
+                <li class="nav-item"><a href="{{path('app_display_pokemon')}}" class="nav-link active" aria-current="page">Clicker</a></li>
+                <li class="nav-item"><a href="{{path('app_boutique')}}" class="nav-link"> Boutique</a></li>
+                <li class="nav-item"><a href="{{path('index_quiz')}}" class="nav-link">Quiz</a></li>
+
+            </ul>
+
+
+        {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
