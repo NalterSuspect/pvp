@@ -56,13 +56,20 @@ class BoutiqueController extends AbstractController
         $search = $request->query->get('searchPokemon');
         $listPokemon = $this->pokemonService->findPokemonByStartLetter("$search");
         $listType = $this->typeService->getAllTypes();
-        $generation = $this->pokemonService->getAllGeneration();
+        $form = $this->createForm(SelectGenFormType::class);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData()["select_field"];
+            return $this->redirect("/boutique/gen/$data");
+        }
 
         return $this->render('boutique/frame.html.twig', [
             'list_pokemon' => $listPokemon,
             'controller_name' => 'PokemonController',
             'liste_types' => $listType,
-            'generation' => $generation,
+            'formGen' => $form->createView(),
             'money' => $this->getUser()->getMoney(),
         ]);
     }
@@ -72,7 +79,6 @@ class BoutiqueController extends AbstractController
         $type = $this->typeService->getOneTypeByName($name);
         $listPokemon = $this->pokemonService->findPokemonByType($type);
         $listType = $this->typeService->getAllTypes();
-        $generation = $this->pokemonService->getAllGeneration();
         $form = $this->createForm(SelectGenFormType::class);
         
         $form->handleRequest($request);
@@ -100,7 +106,6 @@ class BoutiqueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dd($data);
         }
 
         return $this->render('boutique/index.html.twig', [

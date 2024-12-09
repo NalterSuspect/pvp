@@ -97,7 +97,6 @@ class QuizController extends AbstractController
 
             if($pokemon!=null){
                 if($question_type == "type") {
-                    //dd("TYPE question : $type_required answer : ".$pokemon->getType1()->getName());
 
                     if($pokemon->getType2() == null){
                         if ($pokemon->getType1()->getName()==$type_required){
@@ -113,7 +112,6 @@ class QuizController extends AbstractController
 
                 }elseif($question_type == "gen"){
                     $gen_required=$form->getData()['type'];
-                    //dd("GEN question : $gen_required answer : ".$pokemon->getGen());
                     if($pokemon->getGen() == $gen_required){
                         $this->userService->addMoneyPerQuestion($this->getUser());
                         return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
@@ -122,7 +120,6 @@ class QuizController extends AbstractController
                     
                     $letter_required=mb_strtolower($form->getData()['type']);
                     $letter_answered =mb_strtolower($pokemon->getName()[0]);
-                    //dd("LETTER question : $letter_required answer : ".$letter_answered);
                     if($letter_answered == $letter_required){
                         $this->userService->addMoneyPerQuestion($this->getUser());
                         return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
@@ -147,7 +144,6 @@ class QuizController extends AbstractController
     #[Route('/quiz/reset', name: 'quiz_reset')]
     public function restart(Request $request): Response{
         //$this->questionService->resetAnswers();
-        dd($_COOKIE["answers"]);
         return $this->redirectToRoute('quiz_play',['id'=>1]);
     }
 }

@@ -8,13 +8,8 @@
                  hx-trigger="click"
                  hx-target="#moneyUser"
                  hx-swap="innerHTML"
-                 alt=''>
-            <button hx-get="{{path('app_rand_poke') }}"
-                    hx-trigger="click"
-                    hx-target="#user-pokemon-img"
-                    hx-swap="innerHTML"
-                    alt=''
-                    class="btn-primar-light"> Random Pokemon</button>
+                 >
+            <a class='btn-primar-light' href="{{path('app_display_pokemon') }}"> Random Pokemon</a>
         </div>
     </main>
 

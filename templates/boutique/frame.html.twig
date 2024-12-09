@@ -13,9 +13,9 @@
             </div>
 
             {{ form_start(formGen) }}
-                {{ form_row(formGen.select_field) }}
-                <button type="submit">
-                    choose gen</button>
+            {{form_widget(formGen.select_field ,{'attr':{'class':'input-primar-light'}} )}}
+                <button class='btn-primar-light' type="submit">Choose gen
+               </button>
             {{ form_end(formGen) }}
 
             <input class="input-primar-light" type="search" name="searchPokemon" id="searchPokemon"
@@ -37,7 +37,7 @@
                              hx-target="#buyResponse{{pokemon.id}}"
                              hx-swap="innerHTML"
                     > {{pokemon.price}} </button>
-                    <p id="buyResponse{{pokemon.id}}"></p>
+                    <p id="buyResponse{{pokemon.id}}$"></p>
                 </article>
             {% endfor %}
         </div>

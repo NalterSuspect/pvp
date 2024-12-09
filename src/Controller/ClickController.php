@@ -21,13 +21,6 @@ class ClickController extends AbstractController
     
         }
 
-    #[Route('/', name: 'app_click')]
-    public function index(): Response
-    {
-        return $this->render('click/index.html.twig', [
-            'controller_name' => 'ClickController',
-        ]);
-    }
 
     #[Route('/click', name: 'app_click')]
     public function clickOnPokemon(): Response
@@ -48,7 +41,6 @@ class ClickController extends AbstractController
             $randomPokemon=$pokemon->getPokemonOfUser()->toArray();
         }
         $randomPokemon=$randomPokemon[rand(0,count($randomPokemon)-1)];
-        //dd($randomPokemon);
         return $this->render('click/index.html.twig', [
             'controller_name' => 'ClickController',
             'pokemon'=> $randomPokemon,
@@ -70,10 +62,15 @@ class ClickController extends AbstractController
     {
         $user = $this->userService->getUser();
         $pokemon_collection = $this->userService->getPokemonOfUser($user->getUsername());
-        return $this->render('boutique/frame.html.twig', [
+        $randPoke = $pokemon_collection[random_int(0,count($pokemon_collection)-1)];
+        $randPoke= $randPoke->getPokemonOfUser();
+        $randPoke = $randPoke[random_int(0,count($randPoke)-1)];
+        
+        return $this->render('click/index.html.twig', [
             'controller_name' => 'ClickController',
-            'pokemon'=> $pokemon_collection,
-            'money'=>$this->getUser()->getMoney(),
+            'pokemon'=> $randPoke,
+            'money'=>$user->getMoney(),
+            
         ]);
     }
 
