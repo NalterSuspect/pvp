@@ -30,6 +30,18 @@ class TypeController extends AbstractController
         ]);
     }
 
+    #[Route('/type/getAllTypes', name: 'app_type')]
+    public function getAllTypes(): Response
+    {
+        $listeType = $this->typeService->getAllTypes();
+        
+        return $this->render('type/index.html.twig', [
+            'controller_name' => 'TypeController',
+            'list_type' => $listeType,
+
+        ]);
+    }
+
     #[Route('/createAllPokemonTypes', name: 'types_create_all')]
     public function createAllTypes():Response
     {

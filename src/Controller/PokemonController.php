@@ -6,10 +6,13 @@ use App\Factory\PokemonFactory;
 use App\Service\ApiService;
 use App\Service\PokemonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Type;
+
 
 class PokemonController extends AbstractController
 {
@@ -27,8 +30,8 @@ class PokemonController extends AbstractController
     #[Route('/pokemon', name: 'pokemon_home')]
     public function index(): Response
     {
-        $hello = $this->apiService->getOnePokemon(12);
-        dd($hello);
+        //$hello = $this->apiService->getOnePokemon(12);
+        //dd($hello);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
@@ -50,16 +53,8 @@ class PokemonController extends AbstractController
 
     }
 
-    #[Route('/boutique', name: 'pokemon_boutique')]
-    public function boutique():Response{
-        $listPokemon = $this->pokemonService->findPokemonByStartLetter('g');
-    
-        //dd($listPokemon);
-        return $this->render('pokemon/boutique.html.twig', [
-            'list_pokemon' => $listPokemon,
-            'controller_name' => 'PokemonController',
-        ]);
-    }
 
     
+
+
 }

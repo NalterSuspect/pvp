@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Pokemon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Type;
 
 /**
  * @extends ServiceEntityRepository<Pokemon>
@@ -40,6 +41,23 @@ class PokemonRepository extends ServiceEntityRepository
        $query=$query->getQuery();
        return $query->getResult();
    }
+
+   public function findPokemonWithType(int $type): array
+   {
+    
+       $query=  $this->createQueryBuilder('p')
+           ->andWhere('p.type1 = :type')
+           ->orWhere('p.type2 = :type')
+           ->leftJoin('p.type1','type1')
+           ->leftJoin('p.type2','type2')
+           ->setParameter('type', $type . '%');
+        $query=$query->getQuery();
+        return $query->execute();
+   }
+
+
+
+
 
 //    public function findOneBySomeField($value): ?Pokemon
 //    {
