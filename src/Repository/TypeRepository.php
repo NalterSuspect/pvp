@@ -47,7 +47,7 @@ class TypeRepository extends ServiceEntityRepository
        ;
    }
    public function updateTypeToEnglish(){
-        $i=1;
+        $i= $this->findOneBy(['name'=>"Acier"])->getId();
         $eng_names = ['Steel','Figth','Dragon','Water','Electric','Fairy','Fire','Ice','Bug','Normal','Plant','Poison','Psychic','Rock','Ground','Ghost','Dark','Flying'];
         foreach ($eng_names as $name){
             $query = $this->createQueryBuilder('t')
@@ -63,7 +63,8 @@ class TypeRepository extends ServiceEntityRepository
 
    public function getRandomType(){
         $types = $this->findAll();
-        $idType=random_int(1,count($types));
+        $id=$types[0]->getId();
+        $idType=random_int($id,$id+count($types));
         return $this->findOneBy(['id'=>$idType]);
    }
 }
