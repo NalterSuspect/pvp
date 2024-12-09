@@ -42,7 +42,13 @@
             <article class="pokemonItem">
                 <img src="{{pokemon.sprite}}" class="imgPokemonCard" alt="picture of the pokemon {{pokemon.name}}">
                 <p> {{pokemon.name}} </p>
-                <button> {{pokemon.price}} </button>
+                <button 
+                hx-get="{{path('boutique_buy_pokemon',{id:pokemon.id} )}}"
+                hx-trigger="click"
+                hx-target="#buyResponse{{pokemon.id}}"
+                hx-swap="innerHTML"
+                > {{pokemon.price}} </button>
+                <p id="buyResponse{{pokemon.id}}" ></p>
             </article>
         {% endfor %}
         </div>

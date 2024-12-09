@@ -41,4 +41,9 @@ class UserService
         //$this->entityManager->flush();
     }
 
+    function userPossessPokemon(Pokemon $pokemon,User $user): bool{
+        $pokemonOfUser = $this->getPokemonOfUser($user->getUsername());
+        return in_array($pokemon,$pokemonOfUser );
+    }
+
 }

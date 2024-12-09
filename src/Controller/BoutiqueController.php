@@ -4,18 +4,21 @@ namespace App\Controller;
 
 use App\Service\PokemonService;
 use App\Service\TypeService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class BoutiqueController extends AbstractController
 {
     public function __construct(
     private readonly HttpClientInterface $httpClient,
     private PokemonService $pokemonService,
-    private TypeService $typeService
+    private TypeService $typeService,
+    private UserService $userService,
     )
     {
 
@@ -79,6 +82,21 @@ class BoutiqueController extends AbstractController
             'liste_types' => $listType,
             'generation' => $generation,
         ]);
+    }
+
+    #[Route('/boutique/buy/{id}', name: 'boutique_buy_pokemon')]
+    public function buyPokemon( $id ):Response{
+        $user= $this->userService->getUser();
+        $response = $this->pokemonService->addPokemonToUser($id, $user);
+
+
+        if($response["status"]==200){
+            return new Response("<p>Vous avez bien acheter ce pokémon</p>");
+        }elseif($response["status"]==400){
+            return new Response("<p>$response[error]</p>");
+        }else{
+            return new Response("<p>un probleme a ete rencontre lors de votre achat</p>");
+        }
     }
 
 
