@@ -74,14 +74,17 @@ class PokemonService
         if($this->userService->userPossessPokemon($pokemon, $user)){
             return ['status'=> 400, 'error'=>'user possede deja ce pokemon'];
         }else{
-            $user->addPokemonOfUser(pokemonOfUser: $pokemon);
+            $user->addPokemonOfUser( $pokemon);
             $user->setMoney($user->getMoney()-$pokemon->getPrice());
             $this->entityManager->flush();
             return ['status'=> 200];
         }
+    }
 
-        
-
+    function addFirstPokemon(User $user):void {
+        $firstPokemon = $this->getOnePokemonByName('Pikachu');
+        $user->addPokemonOfUser( $firstPokemon);
+        $this->entityManager->flush();
     }
 
 

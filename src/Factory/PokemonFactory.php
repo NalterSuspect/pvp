@@ -22,7 +22,6 @@ class PokemonFactory{
         //dd($pokemonArray);
         foreach($pokemonArray as $pokemon){
             $pokemonEntity= new Pokemon();
-            
             $pokemonEntity->setName($pokemon["name"]["en"]);
             $pokemonEntity->setSprite($pokemon["sprites"]["regular"]);
             

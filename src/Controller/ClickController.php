@@ -43,9 +43,9 @@ class ClickController extends AbstractController
     public function displayPokemon(): Response
     {
         $user = $this->userService->getUser();
-        $pokemon = $this->userService->getPokemonOfUser($user->getUsername());
-        foreach($pokemon as $p){
-            $randomPokemon=$p->getPokemonOfUser()->toArray();
+        $pokemonList = $this->userService->getPokemonOfUser($user->getUsername());
+        foreach($pokemonList as $pokemon){
+            $randomPokemon=$pokemon->getPokemonOfUser()->toArray();
         }
         $randomPokemon=$randomPokemon[rand(0,count($randomPokemon)-1)];
         $money = $user->getMoney();
