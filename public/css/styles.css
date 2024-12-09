@@ -35,7 +35,11 @@ main{
 header{
     background-color: var(--primary-light);
     color: white;
-
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 nav{
