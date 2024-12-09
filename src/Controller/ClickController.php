@@ -48,12 +48,11 @@ class ClickController extends AbstractController
             $randomPokemon=$pokemon->getPokemonOfUser()->toArray();
         }
         $randomPokemon=$randomPokemon[rand(0,count($randomPokemon)-1)];
-        $money = $user->getMoney();
         //dd($randomPokemon);
         return $this->render('click/index.html.twig', [
             'controller_name' => 'ClickController',
             'pokemon'=> $randomPokemon,
-            'money'=>$money,
+            'money'=>$user->getMoney(),
             
         ]);
     }
@@ -63,7 +62,19 @@ class ClickController extends AbstractController
     {
         $user = $this->userService->getUser();
         $this->userService->addMoney($user);
-        return new Response("$ : ".$user->getMoney());
+        return new Response($user->getMoney()." $");
+    }
+
+    #[Route('/randpoke', name: 'app_rand_poke')]
+    public function randpoke(): Response
+    {
+        $user = $this->userService->getUser();
+        $pokemon_collection = $this->userService->getPokemonOfUser($user->getUsername());
+        return $this->render('boutique/frame.html.twig', [
+            'controller_name' => 'ClickController',
+            'pokemon'=> $pokemon_collection,
+            'money'=>$this->getUser()->getMoney(),
+        ]);
     }
 
 

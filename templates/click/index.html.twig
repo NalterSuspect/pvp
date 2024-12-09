@@ -3,15 +3,18 @@
 {% block body %}
     <main>
         <div class="cliker-container">
-            <img src='{{pokemon.sprite}}'
+            <img id="user-pokemon-img" src='{{pokemon.sprite}}'
                  hx-get="{{path('app_add_money') }}"
                  hx-trigger="click"
                  hx-target="#moneyUser"
                  hx-swap="innerHTML"
                  alt=''>
-            <div>
-                <button class="btn-primar-light"> Random Pokemon</button>
-            </div>
+            <button hx-get="{{path('app_rand_poke') }}"
+                    hx-trigger="click"
+                    hx-target="#user-pokemon-img"
+                    hx-swap="innerHTML"
+                    alt=''
+                    class="btn-primar-light"> Random Pokemon</button>
         </div>
     </main>
 
