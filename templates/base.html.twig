@@ -19,9 +19,18 @@
         {% block headers %}
            <header>
                <nav>
-                   <a href="{{path('app_display_pokemon')}}" class="nav-link active" aria-current="page">Clicker</a>
-                   <a href="{{path('app_boutique')}}" class="nav-link"> Boutique</a>
-                   <a href="{{path('index_quiz')}}" class="nav-link">Quiz</a>
+                   <a href="{{path('app_display_pokemon')}}" class="nav-link active" aria-current="page">
+                       <img src="./public/icone/clicker.png" alt="">
+                       Clicker
+                   </a>
+                   <a href="{{path('app_boutique')}}" class="nav-link">
+                       <img src="../public/icone/store.png" alt="">
+                       Boutique
+                   </a>
+                   <a href="{{path('index_quiz')}}" class="nav-link">
+                       <img src="../public/icone/quiz.png" alt="">
+                       Quiz
+                   </a>
                    <p id="moneyUser"> {{money}} $ </p>
                </nav>
            </header>
