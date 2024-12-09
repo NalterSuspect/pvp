@@ -77,10 +77,19 @@ class QuizController extends AbstractController
             $pokemon = $this->pokemonService->getOnePokemonByName($pokemon_name);
 
             if($pokemon!=null){
-                if ($pokemon->getType1()->getName()==$type_required || $pokemon->getType2()->getName()==$type_required){
-                    $this->userService->addMoneyPerQuestion($this->getUser());
-                    return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
+                if($pokemon->getType2() == null){
+                    if ($pokemon->getType1()->getName()==$type_required){
+                        $this->userService->addMoneyPerQuestion($this->getUser());
+                        return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
+                    }
+                }else{
+                    if ($pokemon->getType1()->getName()==$type_required || $pokemon->getType2()->getName()==$type_required){
+                        $this->userService->addMoneyPerQuestion($this->getUser());
+                        return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
+                    }
                 }
+
+
             }
             return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
         }
