@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Service\PokemonService;
 use App\Service\QuestionService;
+use App\Service\UserService;
 use App\Form\CreateQuestionFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +21,7 @@ class QuizController extends AbstractController
     public function __construct(
         private QuestionService $questionService,
         private readonly PokemonService $pokemonService,
+        private readonly UserService $userService,
         private EntityManagerInterface $entityManager,
     )
     {
@@ -57,10 +59,6 @@ class QuizController extends AbstractController
         $number = $id;
         $prompt = $this->questionService->getRandomQuestion();
 
-        if($id==1){
-            $this->questionService->startAnswers();
-        }
-
         $defaultData = [
             'message' => $prompt['type'],
         ];
@@ -78,21 +76,20 @@ class QuizController extends AbstractController
             $type_required=$form->getData()['type'];
             $pokemon = $this->pokemonService->getOnePokemonByName($pokemon_name);
 
-            if ($pokemon!=null && ($pokemon->getType1()->getName()==$type_required || $pokemon->getType2()->getName()==$type_required)){
-                $this->questionService->addAnswerResults($id,1);
-                return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
-            }else{
-                $this->questionService->addAnswerResults($id,0);
-                return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
+            if($pokemon!=null){
+                if ($pokemon->getType1()->getName()==$type_required || $pokemon->getType2()->getName()==$type_required){
+                    $this->userService->addMoneyPerQuestion($this->getUser());
+                    return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
+                }
             }
+            return $this->redirectToRoute('quiz_play',['id'=>$id+1]);
         }
-
         return $this->render('quiz/play.html.twig', [
             'controller_name' => 'QuizController',
             'number' => $number,
             'question' => $prompt['question'],
             'form' => $form->createView(),
-            'answers' => $this->questionService->getAnswerResults(),
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
 

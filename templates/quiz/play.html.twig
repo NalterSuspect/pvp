@@ -3,22 +3,6 @@
 {% block title %}Play{% endblock %}
 
 {% block body %}
-    <style>
-        .grid-answers{
-            display: grid;
-            grid-template-columns: repeat(10,1fr);
-        }
-        .r1{
-            background: green;
-        }
-        .r0{
-            background: red;
-        }
-        .r-1{
-            background: transparent;
-        }
-    </style>
-
     <h1>Question {{ number }}: {{ question }}</h1>
 
     {{ form_start(form) }}
@@ -32,10 +16,6 @@
         </div>
     </div>
     {{ form_end(form) }}
-
-    <div class="grid-answers">
-        {% for answer in answers %}
-            <div class="r{{ answer }}">{{ answer }}</div>
-        {% endfor %}
-    </div>
+    <p>{{ money }}</p>
+    <a href="/quiz">stop quiz</a>
 {% endblock %}
