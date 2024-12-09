@@ -13,6 +13,17 @@ a{text-decoration: none;color: white;}
 
 }
 
+@font-face {
+    font-family: 'classic_pokemon';
+    src: url('../fonts/Pokemon Classic.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'classic_pokemon';
+}
+
 main{
     width: 100%;
     min-height: 100vh;
@@ -42,29 +53,29 @@ nav{
 /* cliker */
 
 .cliker-container{
-    width: 50%;
+    width: 30%;
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
 }
 
 /*login --- register*/
+.sub-container{
+    display: flex;
+    justify-content: space-between;
+}
 
 .lore-container{
-    width: 50%;
-    margin: auto;
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    .container{
-        display: flex;
-        justify-content: space-between;
-    }
+
     .inputs-container{
         margin: 8px 0;
         display: grid;
         grid-template-columns: repeat(3,1fr);
+
     }
     .form-row{
         input{
@@ -88,6 +99,10 @@ nav{
     border-radius: 8px;
     border: transparent;
     color: white;
+
+    box-shadow: 13px 10px 17px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 13px 10px 17px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 13px 10px 17px -10px rgba(0,0,0,0.75);
 }
 
 .btn-primar-dark{
@@ -96,6 +111,10 @@ nav{
     border-radius: 8px;
     border: transparent;
     color: white;
+
+    box-shadow: 13px 10px 17px -18px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 13px 10px 17px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 13px 10px 17px -18px rgba(0,0,0,0.75);
 }
 
 .input-primar-light{
@@ -181,3 +200,20 @@ nav{
 }
 
 /*quiz play*/
+
+.quiz-form{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 50%;
+    margin: 0 auto;
+    .btn-primar-dark{
+        padding: 20px 40px;
+    }
+    .btn-primar-light{
+        padding: 20px 40px;
+    }
+    .input-primar-light{
+        padding: 20px 40px;
+    }
+}

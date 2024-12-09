@@ -2,18 +2,20 @@
 
 {% block title %}Register{% endblock %}
 
+{% block headers %} {% endblock %}
+
 {% block body %}
-    <h1>Register</h1>
+    <main>
+        <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+        {{ form_errors(registrationForm,{'attr': {'class': 'quiz-form'}}) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm.username,{'attr': {'class': 'input-primar-light'}}) }}
+        {{ form_widget(registrationForm.plainPassword,{'attr': {'class': 'input-primar-light'}}) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+        <button type="submit" class='btn-primar-light'>Register</button>
+        {{ form_end(registrationForm) }}
+    </main>
 {% endblock %}

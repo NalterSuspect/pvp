@@ -76,10 +76,6 @@ class QuizController extends AbstractController
                 'question_type'=>'letter',
             ]; 
         }
-        $defaultData = [
-            'message' => $prompt['type'],
-            'class'
-        ];
 
         $form = $this->createFormBuilder($defaultData)
             ->add('answer', TextType::class)
