@@ -59,29 +59,30 @@ class QuestionService
         return ['type'=> $type->getName(), 'question' => 'Give a '.$type->getName().' type Pokemon !'];
     }
 
-    function getGenPokemonQuestion():string
+    function getGenPokemonQuestion():array
     {
         $gen=$this->entityManager->getRepository(className: Pokemon::class)->getAllGen();
-        $num = random_int(1,count($gen));
-        return 'Give a generation '.$num.' pokemon !';
+        $num = random_int(0,count($gen)-1);
+        $random_gen = $gen[$num]["gen"];
+        return ['gen'=>$random_gen, 'question'=> 'Give a generation '.$random_gen.' pokemon !'];
     }
 
-    function getNamePokemonQuestion():string
+    function getNamePokemonQuestion():array
     {
         $chars='ABCDEFGHIJKMLOPQRSTUVWXYZ';
-        return 'Name a pokemon that starts with '.$chars[random_int(0,strlen($chars)-1)].' ! ';
+        $letter_chosen= $chars[random_int(0,strlen($chars)-1)];
+        return ['letter'=>$letter_chosen, 'question'=> 'Name a pokemon that starts with '.$letter_chosen.' ! '];
+
     }
 
     public function getRandomQuestion() :array
     {
-        $rand = 0; // random_int(0,2)
+        //$rand = 0;
+        $rand = random_int(0,2);
         switch ($rand){
             case 0: return $this->getTypePokemonQuestion();
-                break;
             case 1:return $this->getGenPokemonQuestion();
-                break;
             case 2:return $this->getNamePokemonQuestion();
-                break;
         }
         return ['response' => "no question generate lol?"];
     }

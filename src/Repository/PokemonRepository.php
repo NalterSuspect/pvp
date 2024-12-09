@@ -37,7 +37,9 @@ class PokemonRepository extends ServiceEntityRepository
 
    public function getAllGen()
    {
-       $query=  $this->createQueryBuilder('p')->groupBy('p.gen');
+       $query=  $this->createQueryBuilder('p')
+       ->select('p.gen')
+       ->groupBy('p.gen');
        $query=$query->getQuery();
        return $query->getResult();
    }

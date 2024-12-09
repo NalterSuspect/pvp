@@ -64,7 +64,7 @@ class TypeRepository extends ServiceEntityRepository
    public function getRandomType(){
         $types = $this->findAll();
         $id=$types[0]->getId();
-        $idType=random_int($id,$id+count($types));
+        $idType=random_int($id,$id+count($types)-1);
         return $this->findOneBy(['id'=>$idType]);
    }
 }
