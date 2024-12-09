@@ -3,19 +3,21 @@
 {% block title %}Play{% endblock %}
 
 {% block body %}
-    <h1>Question {{ number }}: {{ question }}</h1>
+    <main>
+        <h1>Question {{ number }}: {{ question }}</h1>
 
-    {{ form_start(form) }}
-    <div class="my-custom-class-for-errors">
-        {{ form_errors(form) }}
-    </div>
-
-    <div class="row">
-        <div class="col">
-            {{ form_row(form.answer) }}
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
         </div>
-    </div>
-    {{ form_end(form) }}
-    <p>{{ money }}</p>
-    <a href="{{path('index_quiz') }}">stop quiz</a>
+
+        {{ form_widget(form.answer, {'attr': {'class': 'input-primar-light','placeholder': 'Answer here'}}) }}
+        {{ form_widget(form.next,{'attr': {'class': 'btn-primar-light'}}) }}
+        <div style="visibility: hidden">
+
+        </div>
+        {{ form_end(form) }}
+        <a href="{{path('index_quiz') }}" class="btn-primar-dark">stop quiz</a>
+    </main>
+>>>>>>> new-style
 {% endblock %}

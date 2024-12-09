@@ -3,7 +3,10 @@
 {% block title %}Quiz{% endblock %}
 
 {% block body %}
-    <h1>Quiz index !</h1>
-
-    <a href="{{path('quiz_play', {id:1}) }}">start Quiz</a>
+    <main>
+        <div class="container">
+            <h1>Quiz index !</h1>
+    <a href="{{path('quiz_play', {id:1}) }}" class="btn-big-attention">start Quiz</a>
+        </div>
+    </main>
 {% endblock %}

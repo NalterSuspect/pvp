@@ -31,6 +31,7 @@ class QuizController extends AbstractController
     {
         return $this->render('quiz/index.html.twig', [
             'controller_name' => 'QuizController',
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
     #[Route('/quiz/create', name: 'create_quiz')]
@@ -75,6 +76,10 @@ class QuizController extends AbstractController
                 'question_type'=>'letter',
             ]; 
         }
+        $defaultData = [
+            'message' => $prompt['type'],
+            'class'
+        ];
 
         $form = $this->createFormBuilder($defaultData)
             ->add('answer', TextType::class)
