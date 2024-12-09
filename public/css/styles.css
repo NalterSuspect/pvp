@@ -40,3 +40,65 @@
     flex-wrap: wrap;
     margin-inline: 5%;
 }
+*{margin: 0; padding: 0; box-sizing: border-box;}
+ul{list-style-type: none}
+a{text-decoration: none;color: white;}
+
+:root{
+    --main-dark: #383134;
+    --main-light: #6E6066;
+    --prymary-dark: #853851;
+    --primary-light: #EE1F63;
+    --secondary: #FFB600;
+    --text: #FFFFFF;
+
+
+}
+
+main{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--main-dark);
+    color: white;
+}
+
+/*login --- register*/
+
+.lore-container{
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .inputs-container{
+        margin: 8px 0;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+    }
+    .form-row{
+        input{
+            background-color: var(--main-light);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: transparent;
+            color: white;
+            ::placeholder{
+                color: white;
+                opacity: 1;
+            }
+        }
+    }
+
+}
+
+.btn-primar-light{
+    background-color: var(--primary-light);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: transparent;
+    color: white;
+}
