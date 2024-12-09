@@ -24,8 +24,8 @@ class PokemonService
         return false;
     }
 
-    function getOnePokemonByName($name):Pokemon{
-        return $this->entityManager->getRepository(className: Pokemon::class)->findOneBy(["name"=>$name]);
+    function getOnePokemonByName($name):?Pokemon{
+        return $this->entityManager->getRepository(className: Pokemon::class)->findOneBy(['name'=> $name]);
     }
 
     function createPokemon( Pokemon $pokemon): void {

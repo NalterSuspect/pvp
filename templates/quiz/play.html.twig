@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Play{% endblock %}
+
+{% block body %}
+    <style>
+        .grid-answers{
+            display: grid;
+            grid-template-columns: repeat(10,1fr);
+        }
+        .r1{
+            background: green;
+        }
+        .r0{
+            background: red;
+        }
+        .r-1{
+            background: transparent;
+        }
+    </style>
+
+    <h1>Question {{ number }}: {{ question }}</h1>
+
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.answer) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="grid-answers">
+        {% for answer in answers %}
+            <div class="r{{ answer }}">{{ answer }}</div>
+        {% endfor %}
+    </div>
+{% endblock %}
