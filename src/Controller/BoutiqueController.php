@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SelectGenFormType;
 use App\Service\PokemonService;
 use App\Service\TypeService;
 use App\Service\UserService;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class BoutiqueController extends AbstractController
@@ -26,17 +28,25 @@ class BoutiqueController extends AbstractController
 
 
     #[Route('/boutique', name: 'app_boutique')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $form = $this->createForm(SelectGenFormType::class);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData()["select_field"];
+            return $this->redirect("/boutique/gen/$data");
+        }
+
         $listPokemon = $this->pokemonService->getAllPokemon();
         $listType = $this->typeService->getAllTypes();
-        $generation = $this->pokemonService->getAllGeneration();
 
         return $this->render('boutique/index.html.twig', [
             'controller_name' => 'BoutiqueController',
             'list_pokemon' => $listPokemon,
             'liste_types' => $listType,
-            'generation' => $generation,
+            'formGen' => $form->createView(),
             'money' => $this->getUser()->getMoney(),
         ]);
     }
@@ -58,32 +68,46 @@ class BoutiqueController extends AbstractController
     }
 
     #[Route('/boutique/type/{name}', name: 'boutique_load_pokemon_type')]
-    public function showPokemonByType($name ):Response{
+    public function showPokemonByType($name, Request $request ):Response{
         $type = $this->typeService->getOneTypeByName($name);
         $listPokemon = $this->pokemonService->findPokemonByType($type);
         $listType = $this->typeService->getAllTypes();
         $generation = $this->pokemonService->getAllGeneration();
+        $form = $this->createForm(SelectGenFormType::class);
+        
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData()["select_field"];
+            return $this->redirect("/boutique/gen/$data");
+        }
         return $this->render('boutique/frame.html.twig', [
             'list_pokemon' => $listPokemon,
             'controller_name' => 'PokemonController',
             'liste_types' => $listType,
-            'generation' => $generation,
+            'formGen' => $form->createView(),
             'money' => $this->getUser()->getMoney(),
         ]);
     }
 
     #[Route('/boutique/gen/{id}', name: 'boutique_load_pokemon_gen')]
-    public function showPokemonByGen( $id ):Response{
-        $listPokemon = $this->pokemonService->findPokemonByGen($id,0);
+    public function showPokemonByGen( $id,Request $request ):Response{
+        $listPokemon= $this->pokemonService->findPokemonByGen($id,1);
         $listType = $this->typeService->getAllTypes();
-        $generation = $this->pokemonService->getAllGeneration();
+        $form = $this->createForm(SelectGenFormType::class);
+        
+        $form->handleRequest($request);
 
-        return $this->render('boutique/frame.html.twig', [
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            dd($data);
+        }
+
+        return $this->render('boutique/index.html.twig', [
             'list_pokemon' => $listPokemon,
-            'controller_name' => 'PokemonController',
             'liste_types' => $listType,
-            'generation' => $generation,
+            'controller_name' => 'PokemonController',
+            'formGen' => $form->createView(),
             'money' => $this->getUser()->getMoney(),
         ]);
     }

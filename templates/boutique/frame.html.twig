@@ -12,17 +12,11 @@
                 {% endfor %}
             </div>
 
-            <select class="type-selector input-primar-light">
-                {% for gen in generation %}
-                    <option id="selectGen{{gen.gen}}"
-                            hx-get="{{path('boutique_load_pokemon_gen',{id:gen.gen} ) }}"
-                            hx-trigger="click delay:500ms,"
-                            hx-target="#divListePokemon"
-                            hx-swap="innerHTML"
-                            value="{{gen.gen}}"
-                    > gen {{gen.gen}}</option>
-                {% endfor %}
-            </select>
+            {{ form_start(formGen) }}
+                {{ form_row(formGen.select_field) }}
+                <button type="submit">
+                    choose gen</button>
+            {{ form_end(formGen) }}
 
             <input class="input-primar-light" type="search" name="searchPokemon" id="searchPokemon"
                    hx-get="{{path('boutique_load_pokemon_name')}}"
