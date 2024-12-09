@@ -37,6 +37,7 @@ class BoutiqueController extends AbstractController
             'list_pokemon' => $listPokemon,
             'liste_types' => $listType,
             'generation' => $generation,
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
 
@@ -47,11 +48,12 @@ class BoutiqueController extends AbstractController
         $listType = $this->typeService->getAllTypes();
         $generation = $this->pokemonService->getAllGeneration();
 
-        return $this->render('boutique/index.html.twig', [
+        return $this->render('boutique/frame.html.twig', [
             'list_pokemon' => $listPokemon,
             'controller_name' => 'PokemonController',
             'liste_types' => $listType,
             'generation' => $generation,
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
 
@@ -62,11 +64,12 @@ class BoutiqueController extends AbstractController
         $listType = $this->typeService->getAllTypes();
         $generation = $this->pokemonService->getAllGeneration();
 
-        return $this->render('boutique/index.html.twig', [
+        return $this->render('boutique/frame.html.twig', [
             'list_pokemon' => $listPokemon,
             'controller_name' => 'PokemonController',
             'liste_types' => $listType,
             'generation' => $generation,
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
 
@@ -76,11 +79,12 @@ class BoutiqueController extends AbstractController
         $listType = $this->typeService->getAllTypes();
         $generation = $this->pokemonService->getAllGeneration();
 
-        return $this->render('boutique/index.html.twig', [
+        return $this->render('boutique/frame.html.twig', [
             'list_pokemon' => $listPokemon,
             'controller_name' => 'PokemonController',
             'liste_types' => $listType,
             'generation' => $generation,
+            'money' => $this->getUser()->getMoney(),
         ]);
     }
 
