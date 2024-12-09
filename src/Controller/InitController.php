@@ -35,8 +35,9 @@ class InitController extends AbstractController
     public function init(): Response
     {
         $user = $this->userService->getUser();
-
+        $firstLogin= false;
         if($this->typeService->canCreateNewTypes()){
+            $firstLogin = true;
             $typesArray = $this->apiService->getAllPokemonTypes();
             $typesEntity = $this->pokemonFactory->createAllTypes($typesArray);
     
@@ -56,8 +57,9 @@ class InitController extends AbstractController
         if(count($user->getPokemonOfUser())==0){
             $this->pokemonService->addFirstPokemon( $user);
         }
-
-        $this->typeService->setTypeToEnglish();
+        if($firstLogin){
+            $this->typeService->setTypeToEnglish();
+        }
 
         return $this->redirect('/displayPokemon');
     }
